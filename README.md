@@ -8,6 +8,7 @@ This game will be set to a time limit and the goal is to move from left to right
 
 
 ## Wire Frames
+[Project 1 Wireframes](https://github.com/alissonkhr/game-project-1/files/9097854/Project1.pdf)
 
 
 ## User Stories
