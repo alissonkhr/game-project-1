@@ -25,7 +25,11 @@ class Player {
 
     draw() {
         c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        c.fillRect(this.position.x, this.position.y, this.width, this.height) // temp player is red box
     }
 }
+
+const player = new Player() // instantiate player from Player class
+
+player.draw() // player is now on canvas
 
