@@ -39,17 +39,41 @@ class Player {
         this.height
       );
   }
+
+  update() {
+    if (this.image) {
+      this.draw();
+      this.position.x += this.velocity.x;
+    }
+  }
 }
 
 const player = new Player(); // instantiate player from Player class
-
-player.draw(); // player is now on canvas
+const keys = {
+  arrowLeft: {
+    pressed: false,
+  },
+  arrowRight: {
+    pressed: false,
+  },
+  space: {
+    pressed: false,
+  },
+};
 
 function animatePlayer() {
   requestAnimationFrame(animatePlayer);
   c.fillStyle = "tan";
   c.fillRect(0, 0, canvas.width, canvas.height);
-  player.draw();
+  player.update();
+
+  if (keys.arrowLeft.pressed) {
+    player.velocity.x = -5;
+  } else if (keys.arrowRight.pressed) {
+    player.velocity.x = 5;
+  } else {
+    player.velocity.x = 0;
+  }
 }
 
 animatePlayer();
@@ -58,9 +82,27 @@ window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "ArrowLeft":
       console.log("left");
+      keys.arrowLeft.pressed = true;
       break;
     case "ArrowRight":
       console.log("right");
+      keys.arrowRight.pressed = true;
+      break;
+    case " ":
+      console.log("space");
+      break;
+  }
+});
+
+window.addEventListener("keyup", (event) => {
+  switch (event.key) {
+    case "ArrowLeft":
+      console.log("left");
+      keys.arrowLeft.pressed = false;
+      break;
+    case "ArrowRight":
+      console.log("right");
+      keys.arrowRight.pressed = false;
       break;
     case " ":
       console.log("space");
