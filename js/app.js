@@ -18,14 +18,21 @@ class Player {
             y: 0
         } // how fast the player will move along the canvas axes
 
-        // this.image = none yet
-        this.width = 100
-        this.height = 100 // player will have box collision detection
+        const playerImage = new Image()
+        playerImage.src = './images/link.png'
+        playerImage.onload = () => {
+            const scale = 0.15
+            this.image = playerImage
+            this.width = playerImage.width * scale
+            this.height = playerImage.height * scale // player will have box collision detection
+        }
     }
 
     draw() {
-        c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y, this.width, this.height) // temp player is red box
+        // c.fillStyle = 'red'
+        // c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        if (this.image)
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
     }
 }
 
@@ -33,3 +40,11 @@ const player = new Player() // instantiate player from Player class
 
 player.draw() // player is now on canvas
 
+function animatePlayer() {
+    requestAnimationFrame(animatePlayer)
+    c.fillStyle = 'tan'
+    c.fillRect(0, 0, canvas.width, canvas.height)
+    player.draw()
+}
+
+animatePlayer()
