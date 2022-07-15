@@ -6,11 +6,13 @@ const c = canvas.getContext("2d"); // this function is used to access the canvas
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight; // takes up width and height of window
 
+const gravity = 0.5;
+
 class Player {
   constructor() {
     this.velocity = {
       x: 0,
-      y: 0,
+      y: 1,
     }; // how fast the player will move along the canvas axes
 
     const playerImage = new Image();
@@ -44,6 +46,10 @@ class Player {
     if (this.image) {
       this.draw();
       this.position.x += this.velocity.x;
+      this.position.y += this.velocity.y;
+      if (this.position.y + this.height + this.velocity.y <= canvas.height)
+        this.velocity.y += gravity;
+      else this.velocity.y = 0;
     }
   }
 }
@@ -74,6 +80,8 @@ function animatePlayer() {
     player.position.x + player.width <= canvas.width
   ) {
     player.velocity.x = 5;
+  } else if (keys.space.pressed && player.position.y <= canvas.height) {
+    player.velocity.y = -7;
   } else {
     player.velocity.x = 0;
   }
@@ -93,6 +101,7 @@ window.addEventListener("keydown", (event) => {
       break;
     case " ":
       console.log("space");
+      keys.space.pressed = true;
       break;
   }
 });
@@ -109,6 +118,7 @@ window.addEventListener("keyup", (event) => {
       break;
     case " ":
       console.log("space");
+      keys.space.pressed = false;
       break;
   }
 });
