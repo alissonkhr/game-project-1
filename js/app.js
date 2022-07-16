@@ -54,7 +54,51 @@ class Player {
   }
 }
 
+class Jar {
+  constructor() {
+    this.velocity = {
+      x: 0,
+      y: 0,
+    }; // how fast the player will move along the canvas axes
+
+    const playerImage = new Image();
+    playerImage.src = "./images/jar.png";
+    playerImage.onload = () => {
+      const scale = 0.05;
+      this.image = playerImage;
+      this.width = playerImage.width * scale;
+      this.height = playerImage.height * scale;
+      this.position = {
+        x: canvas.width / 2 - this.width / 2,
+        y: canvas.height / 2,
+      }; // where the player will be positioned on the canvas (bottom center)
+    };
+  }
+
+  draw() {
+    // c.fillStyle = 'red'
+    // c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    if (this.image)
+      c.drawImage(
+        this.image,
+        this.position.x,
+        this.position.y,
+        this.width,
+        this.height
+      );
+  }
+
+  update() {
+    if (this.image) {
+      this.draw();
+      this.position.x += this.velocity.x;
+      this.position.y += this.velocity.y;
+    }
+  }
+}
+
 const player = new Player(); // instantiate player from Player class
+const jar = new Jar();
 const keys = {
   arrowLeft: {
     pressed: false,
@@ -71,6 +115,7 @@ function animatePlayer() {
   requestAnimationFrame(animatePlayer);
   c.fillStyle = "tan";
   c.fillRect(0, 0, canvas.width, canvas.height);
+  jar.update();
   player.update();
 
   if (keys.arrowLeft.pressed && player.position.x >= 0) {
