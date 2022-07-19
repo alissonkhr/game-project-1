@@ -30,8 +30,8 @@ class Player {
   }
 
   draw() {
-    c.fillStyle = 'red'
-    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    // c.fillStyle = 'red'
+    // c.fillRect(this.position.x, this.position.y, this.width, this.height)
     if (this.image)
       c.drawImage(
         this.image,
@@ -76,8 +76,8 @@ class Jar {
   }
 
   draw() {
-     c.fillStyle = 'blue'
-     c.fillRect(this.position.x, this.position.y, this.width, this.height)
+     // c.fillStyle = 'blue'
+     // c.fillRect(this.position.x, this.position.y, this.width, this.height)
     if (this.image)
       c.drawImage(
         this.image,
