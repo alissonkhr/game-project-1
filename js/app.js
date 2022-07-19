@@ -15,13 +15,13 @@ class Player {
       y: 1,
     }; // how fast the player will move along the canvas axes
 
-    const playerImage = new Image();
-    playerImage.src = "./images/link.png";
-    playerImage.onload = () => {
+    const jarImage = new Image();
+    jarImage.src = "./images/link.png";
+    jarImage.onload = () => {
       const scale = 0.1;
-      this.image = playerImage;
-      this.width = playerImage.width * scale;
-      this.height = playerImage.height * scale;
+      this.image = jarImage;
+      this.width = jarImage.width * scale;
+      this.height = jarImage.height * scale;
       this.position = {
         x: canvas.width / 2 - this.width / 2,
         y: canvas.height - this.height,
@@ -59,19 +59,19 @@ class Jar {
     this.velocity = {
       x: 0,
       y: 0,
-    }; // how fast the player will move along the canvas axes
+    }; // how fast the jar will move down the canvas
 
-    const playerImage = new Image();
-    playerImage.src = "./images/jar.png";
-    playerImage.onload = () => {
-      const scale = 0.05;
-      this.image = playerImage;
-      this.width = playerImage.width * scale;
-      this.height = playerImage.height * scale;
+    const jarImage = new Image();
+    jarImage.src = "./images/jar.png";
+    jarImage.onload = () => {
+      const scale = 0.044;
+      this.image = jarImage;
+      this.width = jarImage.width * scale;
+      this.height = jarImage.height * scale;
       this.position = {
         x: canvas.width / 2 - this.width / 2,
         y: canvas.height / 2,
-      }; // where the player will be positioned on the canvas (bottom center)
+      }; // where the jar will be positioned on the canvas
     };
   }
 
@@ -97,8 +97,31 @@ class Jar {
   }
 }
 
+class Grid {
+  constructor() {
+    this.position = {
+      x: 0,
+      y: 0,
+    };
+
+    this.velocity = {
+      x: 0,
+      y: 0,
+    };
+
+    this.jars = [];
+
+    for (let i = 0; i < 10; i++) {
+      this.jars.push(new Jar());
+    }
+    console.log(this.jars);
+  }
+
+  update() {}
+}
+
 const player = new Player(); // instantiate player from Player class
-const jar = new Jar();
+const grids = [new Grid()];
 const keys = {
   arrowLeft: {
     pressed: false,
@@ -115,8 +138,14 @@ function animatePlayer() {
   requestAnimationFrame(animatePlayer);
   c.fillStyle = "tan";
   c.fillRect(0, 0, canvas.width, canvas.height);
-  jar.update();
   player.update();
+
+  grids.forEach((grid) => {
+    grid.update();
+    grid.jars.forEach((jar) => {
+      jar.update();
+    });
+  });
 
   if (keys.arrowLeft.pressed && player.position.x >= 0) {
     player.velocity.x = -5;
