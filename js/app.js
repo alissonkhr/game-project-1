@@ -88,7 +88,7 @@ class Jar {
       );
   }
 
-  update({velocity}) {
+  update({ velocity }) {
     if (this.image) {
       this.draw();
       this.position.x += velocity.x;
@@ -105,16 +105,16 @@ class Grid {
     };
 
     this.velocity = {
-      x: 3,
+      x: 2,
       y: 0,
     };
 
     this.jars = [];
 
-    const columns = Math.floor(Math.random() * 4 + 3)
-    const rows = Math.floor(Math.random() * 2 + 1)
+    const columns = Math.floor(Math.random() * 4 + 4);
+    const rows = Math.floor(Math.random() * 1 + 1);
 
-    this.width = columns * 30
+    this.width = columns * 10;
 
     for (let x = 0; x < columns; x++) {
       for (let y = 0; y < rows; y++) {
@@ -122,7 +122,7 @@ class Grid {
           new Jar({
             position: {
               x: x * 188,
-              y: y * 241,
+              y: y * 200,
             },
           })
         );
@@ -132,21 +132,20 @@ class Grid {
   }
 
   update() {
-    this.position.x += this.velocity.x
-    this.position.y += this.velocity.y
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
 
-    this.velocity.y = 0
+    this.velocity.y = 0;
 
     if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
-        this.velocity.x = -this.velocity.x
-        this.velocity.y = 24
+      this.velocity.x = -this.velocity.x;
+      this.velocity.y = 24;
     }
-
   }
 }
 
 const player = new Player(); // instantiate player from Player class
-const grids = [new Grid()];
+const grids = [];
 const keys = {
   arrowLeft: {
     pressed: false,
@@ -159,6 +158,11 @@ const keys = {
   },
 };
 
+let frames = 0
+let randomInterval = Math.floor((Math.random() * 500) + 500)
+
+console.log(randomInterval)
+
 function animatePlayer() {
   requestAnimationFrame(animatePlayer);
   c.fillStyle = "tan";
@@ -168,7 +172,7 @@ function animatePlayer() {
   grids.forEach((grid) => {
     grid.update();
     grid.jars.forEach((jar) => {
-      jar.update({velocity: grid.velocity});
+      jar.update({ velocity: grid.velocity });
     });
   });
 
@@ -184,6 +188,14 @@ function animatePlayer() {
   } else {
     player.velocity.x = 0;
   }
+// spawning enemies
+  if (frames % randomInterval === 0) {
+    grids.push(new Grid())
+    randomInterval = Math.floor((Math.random() * 1000) + 2500)
+    console.log(randomInterval)
+  }
+
+  frames ++
 }
 
 animatePlayer();
