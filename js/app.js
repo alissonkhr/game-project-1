@@ -15,13 +15,13 @@ class Player {
       y: 1,
     }; // how fast the player will move along the canvas axes
 
-    const jarImage = new Image();
-    jarImage.src = "./images/link.png";
-    jarImage.onload = () => {
+    const playerImage = new Image();
+    playerImage.src = "./images/link.png";
+    playerImage.onload = () => {
       const scale = 0.1;
-      this.image = jarImage;
-      this.width = jarImage.width * scale;
-      this.height = jarImage.height * scale;
+      this.image = playerImage;
+      this.width = playerImage.width * scale;
+      this.height = playerImage.height * scale;
       this.position = {
         x: canvas.width / 2 - this.width / 2,
         y: canvas.height - this.height,
@@ -30,8 +30,8 @@ class Player {
   }
 
   draw() {
-    // c.fillStyle = 'red'
-    // c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    c.fillStyle = 'red'
+    c.fillRect(this.position.x, this.position.y, this.width, this.height)
     if (this.image)
       c.drawImage(
         this.image,
@@ -76,8 +76,8 @@ class Jar {
   }
 
   draw() {
-    // c.fillStyle = 'red'
-    // c.fillRect(this.position.x, this.position.y, this.width, this.height)
+     c.fillStyle = 'blue'
+     c.fillRect(this.position.x, this.position.y, this.width, this.height)
     if (this.image)
       c.drawImage(
         this.image,
@@ -105,42 +105,42 @@ class Grid {
     };
 
     this.velocity = {
-      x: 2,
+      x: 0,
       y: 0,
     };
 
     this.jars = [];
 
-    const columns = Math.floor(Math.random() * 4 + 4);
-    const rows = Math.floor(Math.random() * 1 + 1);
+    // const columns = Math.floor(Math.random() * 4 + 4);
+    // const rows = Math.floor(Math.random() * 1 + 1);
 
-    this.width = columns * 10;
+    // this.width = columns * 10;
 
-    for (let x = 0; x < columns; x++) {
-      for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < 5; x++) {
+      for (let y = 0; y < 1; y++) {
         this.jars.push(
           new Jar({
             position: {
               x: x * 188,
-              y: y * 200,
+              y: 0,
             },
           })
         );
       }
     }
-    console.log(this.jars);
+    console.log(this.jars, 'jars array');
   }
 
   update() {
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
-    this.velocity.y = 0;
+    this.velocity.y = 0.88;
 
-    if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
+    /*if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
       this.velocity.x = -this.velocity.x;
       this.velocity.y = 24;
-    }
+    }*/
   }
 }
 
@@ -158,10 +158,10 @@ const keys = {
   },
 };
 
-let frames = 0
-let randomInterval = Math.floor((Math.random() * 500) + 500)
+let frames = 0;
+let randomInterval = Math.floor(Math.random() * 500 + 200);
 
-console.log(randomInterval)
+console.log(randomInterval, 'beginning interval');
 
 function animatePlayer() {
   requestAnimationFrame(animatePlayer);
@@ -171,8 +171,18 @@ function animatePlayer() {
 
   grids.forEach((grid) => {
     grid.update();
-    grid.jars.forEach((jar) => {
+    grid.jars.forEach((jar, i) => {
       jar.update({ velocity: grid.velocity });
+
+      if(player.position.y + player.height >= jar.position.y
+        && player.position.y <= jar.position.y + jar.height
+        && player.position.x + player.width >= jar.position.x
+        && player.position.x <= jar.position.x + jar.width) {
+        console.log('collide')
+        setTimeout(() => {
+            grid.jars.splice(i, 1)
+        }, 0)
+      }
     });
   });
 
@@ -188,14 +198,14 @@ function animatePlayer() {
   } else {
     player.velocity.x = 0;
   }
-// spawning enemies
+  // spawning enemies
   if (frames % randomInterval === 0) {
-    grids.push(new Grid())
-    randomInterval = Math.floor((Math.random() * 1000) + 2500)
-    console.log(randomInterval)
+    grids.push(new Grid());
+    randomInterval = Math.floor(Math.random() * 800 + 500);
+    console.log(randomInterval, 'new interval');
   }
 
-  frames ++
+  frames++;
 }
 
 animatePlayer();
