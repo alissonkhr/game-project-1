@@ -55,7 +55,7 @@ class Player {
 }
 
 class Jar {
-  constructor() {
+  constructor({ position }) {
     this.velocity = {
       x: 0,
       y: 0,
@@ -69,8 +69,8 @@ class Jar {
       this.width = jarImage.width * scale;
       this.height = jarImage.height * scale;
       this.position = {
-        x: canvas.width / 2 - this.width / 2,
-        y: canvas.height / 2,
+        x: position.x,
+        y: position.y,
       }; // where the jar will be positioned on the canvas
     };
   }
@@ -100,7 +100,7 @@ class Jar {
 class Grid {
   constructor() {
     this.position = {
-      x: 0,
+      x: 3,
       y: 0,
     };
 
@@ -111,13 +111,29 @@ class Grid {
 
     this.jars = [];
 
-    for (let i = 0; i < 10; i++) {
-      this.jars.push(new Jar());
+    const columns = Math.floor(Math.random() * 4 + 3)
+    const rows = Math.floor(Math.random() * 2 + 1)
+
+    for (let x = 0; x < columns; x++) {
+      for (let y = 0; y < rows; y++) {
+        this.jars.push(
+          new Jar({
+            position: {
+              x: x * 188,
+              y: y * 241,
+            },
+          })
+        );
+      }
     }
     console.log(this.jars);
   }
 
-  update() {}
+  update() {
+    this.position.x += this.velocity.x
+    this.position.y += this.velocity.y
+
+  }
 }
 
 const player = new Player(); // instantiate player from Player class
