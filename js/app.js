@@ -54,6 +54,36 @@ class Player {
   }
 }
 
+class Particle {
+  constructor({ position, velocity, radius, color }) {
+    this.position = position;
+    this.velocity = velocity;
+
+    this.radius = radius;
+    this.color = color;
+    this.opacity = 1;
+  }
+
+  draw() {
+    c.save();
+    c.globalAlpha = this.opacity;
+    c.beginPath();
+    c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+    c.fillStyle = this.color;
+    c.fill();
+    c.closePath();
+    c.restore();
+  }
+
+  update() {
+    this.draw();
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
+
+    this.opacity -= 0.01;
+  }
+}
+
 class Jar {
   constructor({ position }) {
     this.velocity = {
@@ -76,8 +106,8 @@ class Jar {
   }
 
   draw() {
-     // c.fillStyle = 'blue'
-     // c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    // c.fillStyle = 'blue'
+    // c.fillRect(this.position.x, this.position.y, this.width, this.height)
     if (this.image)
       c.drawImage(
         this.image,
@@ -128,7 +158,7 @@ class Grid {
         );
       }
     }
-    console.log(this.jars, 'jars array');
+    console.log(this.jars, "jars array");
   }
 
   update() {
@@ -146,6 +176,7 @@ class Grid {
 
 const player = new Player(); // instantiate player from Player class
 const grids = [];
+const particles = [];
 const keys = {
   arrowLeft: {
     pressed: false,
@@ -161,27 +192,63 @@ const keys = {
 let frames = 0;
 let randomInterval = Math.floor(Math.random() * 500 + 200);
 
-console.log(randomInterval, 'beginning interval');
+console.log(randomInterval, "beginning interval");
+
+function createParticles({ object, color }) {
+  for (let i = 0; i < 15; i++) {
+    particles.push(
+      new Particle({
+        position: {
+          x: object.position.x + object.width / 2,
+          y: object.position.y + object.height / 2,
+        },
+
+        velocity: {
+          x: (Math.random() - 0.5) * 2,
+          y: (Math.random() - 0.5) * 2,
+        },
+
+        radius: Math.random() * 3,
+
+        color: color || "#795548",
+      })
+    );
+  }
+}
 
 function animatePlayer() {
   requestAnimationFrame(animatePlayer);
   c.fillStyle = "tan";
   c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
-
+  particles.forEach((particle, i) => {
+    if (particle.opacity <= 0) {
+      setTimeout(() => {
+        particles.splice(i, 1);
+      }, 0);
+    } else {
+      particle.update();
+    }
+  });
   grids.forEach((grid) => {
     grid.update();
     grid.jars.forEach((jar, i) => {
       jar.update({ velocity: grid.velocity });
 
-      if(player.position.y + player.height >= jar.position.y
-        && player.position.y <= jar.position.y + jar.height
-        && player.position.x + player.width >= jar.position.x
-        && player.position.x <= jar.position.x + jar.width) {
-        console.log('collide')
+      // removes jars when player collides
+      if (
+        player.position.y + player.height >= jar.position.y &&
+        player.position.y <= jar.position.y + jar.height &&
+        player.position.x + player.width >= jar.position.x &&
+        player.position.x <= jar.position.x + jar.width
+      ) {
+        createParticles({
+          object: jar,
+        });
+        //console.log("collide");
         setTimeout(() => {
-            grid.jars.splice(i, 1)
-        }, 0)
+          grid.jars.splice(i, 1);
+        }, 0);
       }
     });
   });
@@ -202,7 +269,7 @@ function animatePlayer() {
   if (frames % randomInterval === 0) {
     grids.push(new Grid());
     randomInterval = Math.floor(Math.random() * 800 + 500);
-    console.log(randomInterval, 'new interval');
+    console.log(randomInterval, "new interval");
   }
 
   frames++;
