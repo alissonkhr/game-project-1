@@ -171,7 +171,7 @@ class Grid {
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
-    this.velocity.y = 1;
+    this.velocity.y = 1.5;
 
     /*if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
       this.velocity.x = -this.velocity.x;
@@ -196,7 +196,7 @@ const keys = {
 };
 
 let frames = 0;
-let randomInterval = 1;
+//let interval = 1;
 let game = {
   over: false,
   active: true,
@@ -299,9 +299,9 @@ function animatePlayer() {
     player.velocity.x = 0;
   }
   // spawning enemies
-  if (frames % randomInterval === 0) {
+  if (frames % 400 === 0) {
     grids.push(new Grid());
-    randomInterval = Math.floor(Math.random() * 800 + 600);
+    //interval = Math.floor(Math.random() * 800 + 600);
   }
 
   frames++;
