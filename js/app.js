@@ -282,6 +282,11 @@ function animatePlayer() {
         setTimeout(() => {
           grid.jars.splice(i, 1);
         }, 0);
+      } else if (jar.position.y >= canvas.height)
+      {
+        setTimeout(() => {
+            grid.jars.splice(i);
+          }, 0);
       }
     });
   });
