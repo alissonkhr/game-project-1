@@ -1,3 +1,14 @@
 body {
     margin: 0;
 }
+
+p {
+    position: fixed;
+    z-index: 10;
+    color: black;
+    left: 15px;
+    top: 10px;
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}

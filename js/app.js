@@ -15,6 +15,8 @@ class Player {
       y: 1,
     }; // how fast the player will move along the canvas axes
 
+    this.opacity = 1;
+
     const playerImage = new Image();
     playerImage.src = "./images/link.png";
     playerImage.onload = () => {
@@ -32,6 +34,9 @@ class Player {
   draw() {
     // c.fillStyle = 'red'
     // c.fillRect(this.position.x, this.position.y, this.width, this.height)
+
+    c.save();
+    c.globalAlpha = this.opacity;
     if (this.image)
       c.drawImage(
         this.image,
@@ -40,6 +45,7 @@ class Player {
         this.width,
         this.height
       );
+    c.restore();
   }
 
   update() {
@@ -191,6 +197,10 @@ const keys = {
 
 let frames = 0;
 let randomInterval = 1;
+let game = {
+  over: false,
+  active: true,
+};
 
 console.log(randomInterval, "beginning interval");
 
@@ -217,6 +227,7 @@ function createParticles({ object, color }) {
 }
 
 function animatePlayer() {
+  if (!game.active) return;
   requestAnimationFrame(animatePlayer);
   c.fillStyle = "tan";
   c.fillRect(0, 0, canvas.width, canvas.height);
@@ -249,7 +260,13 @@ function animatePlayer() {
         //console.log("collide");
         setTimeout(() => {
           grid.jars.splice(i, 1);
+          player.opacity = 0;
+          game.over = true;
         }, 0);
+
+        setTimeout(() => {
+          game.active = false;
+        }, 2000);
       } else if (
         player.position.y + player.height <= jar.position.y &&
         player.position.y <= jar.position.y + jar.height &&
@@ -292,6 +309,7 @@ function animatePlayer() {
 animatePlayer();
 
 window.addEventListener("keydown", (event) => {
+  if (game.over) return;
   switch (event.key) {
     case "ArrowLeft":
       console.log("left");
@@ -324,4 +342,3 @@ window.addEventListener("keyup", (event) => {
       break;
   }
 });
-
