@@ -1,11 +1,17 @@
-body {
+h1 {
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: blueviolet;
+    
+}
+
+div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 p {
-    position: fixed;
     z-index: 10;
     color: black;
     left: 15px;
