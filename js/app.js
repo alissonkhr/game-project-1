@@ -190,7 +190,7 @@ const keys = {
 };
 
 let frames = 0;
-let randomInterval = Math.floor(Math.random() * 500 + 200);
+let randomInterval = 1;
 
 console.log(randomInterval, "beginning interval");
 
@@ -243,6 +243,20 @@ function animatePlayer() {
         player.position.x <= jar.position.x + jar.width
       ) {
         createParticles({
+          object: player,
+          color: "red",
+        });
+        //console.log("collide");
+        setTimeout(() => {
+          grid.jars.splice(i, 1);
+        }, 0);
+      } else if (
+        player.position.y + player.height <= jar.position.y &&
+        player.position.y <= jar.position.y + jar.height &&
+        player.position.x + player.width >= jar.position.x &&
+        player.position.x <= jar.position.x + jar.width
+      ) {
+        createParticles({
           object: jar,
         });
         //console.log("collide");
@@ -268,7 +282,7 @@ function animatePlayer() {
   // spawning enemies
   if (frames % randomInterval === 0) {
     grids.push(new Grid());
-    randomInterval = Math.floor(Math.random() * 800 + 500);
+    randomInterval = Math.floor(Math.random() * 800 + 600);
     console.log(randomInterval, "new interval");
   }
 
