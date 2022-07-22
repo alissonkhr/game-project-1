@@ -202,7 +202,7 @@ let game = {
   active: true,
 };
 
-console.log(randomInterval, "beginning interval");
+let score = 0;
 
 function createParticles({ object, color }) {
   for (let i = 0; i < 15; i++) {
@@ -273,6 +273,8 @@ function animatePlayer() {
         player.position.x + player.width >= jar.position.x &&
         player.position.x <= jar.position.x + jar.width
       ) {
+        score += 1;
+        $("#scoreEle").html(score);
         createParticles({
           object: jar,
         });
