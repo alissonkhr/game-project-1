@@ -3,8 +3,8 @@ const canvas = document.querySelector("canvas"); // grabs canvas element
 
 const c = canvas.getContext("2d"); // this function is used to access the canvas tags 2D drawing functions that will be implemented later for the game
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight; // takes up width and height of window
+canvas.width = 1024;
+canvas.height = 576; // takes up width and height of window
 
 const gravity = 0.5;
 
@@ -152,12 +152,12 @@ class Grid {
 
     // this.width = columns * 10;
 
-    for (let x = 0; x < 5; x++) {
+    for (let x = 0; x < 6; x++) {
       for (let y = 0; y < 1; y++) {
         this.jars.push(
           new Jar({
             position: {
-              x: x * 188,
+              x: x * 196,
               y: 0,
             },
           })
@@ -171,7 +171,7 @@ class Grid {
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
-    this.velocity.y = 0.88;
+    this.velocity.y = 1;
 
     /*if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
       this.velocity.x = -this.velocity.x;
@@ -302,10 +302,11 @@ function animatePlayer() {
   if (frames % randomInterval === 0) {
     grids.push(new Grid());
     randomInterval = Math.floor(Math.random() * 800 + 600);
-    console.log(randomInterval, "new interval");
   }
 
   frames++;
+
+  console.log(frames)
 }
 
 animatePlayer();
