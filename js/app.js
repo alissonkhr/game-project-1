@@ -1,4 +1,4 @@
-console.log('Hey, listen!')
+console.log("Hey, listen!");
 
 const canvas = document.querySelector("canvas"); // grabs canvas element
 // console.log(canvas)
