@@ -320,8 +320,6 @@ function animatePlayer() {
   frames++;
 }
 
-const gameCounter = setInterval(gameTimer, 1000);
-
 function gameTimer() {
   gameTime = gameTime - 1;
   if (gameTime <= -1) {
@@ -334,7 +332,7 @@ function gameTimer() {
   $("#timerEle").html(`${gameTime} seconds`);
 }
 
-//animatePlayer();
+animatePlayer();
 
 window.addEventListener("keydown", (event) => {
   if (game.over) return;
@@ -371,3 +369,18 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
+const gameCounter = setInterval(gameTimer, 1000);
+
+const rules = document.querySelector("#rulesButton");
+function showRules() {
+  alert(
+    `Move left to right with the left and right arrow keys, respectively.\nPress space to jump, hold it to jump higher.\nYou must jump on top of the jars to get a point.\nAfter the time is up, or you get hit by 3 jars, the game is over!`
+  );
+}
+rules.addEventListener("click", showRules);
+
+const restart = document.querySelector("#restartButton");
+function restartGame() {
+  location.reload();
+}
+restart.addEventListener("click", restartGame);
