@@ -203,6 +203,7 @@ let game = {
 };
 let score = 0;
 let lives = 3;
+let gameTime = 60;
 
 function createParticles({ object, color }) {
   for (let i = 0; i < 15; i++) {
@@ -268,6 +269,7 @@ function animatePlayer() {
           if (lives === 0) {
             player.opacity = 0;
             game.over = true;
+            clearInterval(gameCounter);
           }
         }, 0);
 
@@ -316,8 +318,20 @@ function animatePlayer() {
   }
 
   frames++;
+}
 
-  console.log(frames);
+const gameCounter = setInterval(gameTimer, 1000);
+
+function gameTimer() {
+  gameTime = gameTime - 1;
+  if (gameTime <= -1) {
+    clearInterval(gameCounter);
+    player.opacity = 0;
+    game.over = true;
+    game.active = false;
+    return;
+  }
+  $("#timerEle").html(`${gameTime} seconds`);
 }
 
 animatePlayer();

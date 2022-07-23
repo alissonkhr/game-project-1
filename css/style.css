@@ -22,13 +22,14 @@ div {
     position: relative;
 }
 
-#score, #lives {
+#score, #lives, #timer {
     font-size: 20px;
     color: rgb(181, 116, 242);
     text-shadow: 1px 1px #772bda;
     font-family: silk, sans-serif;
 }
 
-#score {
-    position: absolute;
+#stats {
+    display: flex;
+    justify-content: space-between;
 }
