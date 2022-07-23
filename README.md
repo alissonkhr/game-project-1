@@ -30,7 +30,6 @@ This game will be set to a time limit and the goal is to move from left to right
 ### Unsolved Problems
 
 - I was not able to get the collision detection perfect for the player when smashing a jar, so that needs some revisiting.
-- Still new to adding audio to a site and it seems my hosted webpage does not play the audio, but locally it works fine for me.
 
 ### Forthcoming Features
 
