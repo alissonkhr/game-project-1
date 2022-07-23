@@ -201,8 +201,8 @@ let game = {
   over: false,
   active: true,
 };
-
 let score = 0;
+let lives = 3;
 
 function createParticles({ object, color }) {
   for (let i = 0; i < 15; i++) {
@@ -253,6 +253,8 @@ function animatePlayer() {
         player.position.x + player.width >= jar.position.x &&
         player.position.x <= jar.position.x + jar.width
       ) {
+        lives -= 1;
+        $("#livesEle").html(lives);
         createParticles({
           object: player,
           color: "red",
@@ -260,12 +262,17 @@ function animatePlayer() {
         //console.log("collide");
         setTimeout(() => {
           grid.jars.splice(i, 1);
-          player.opacity = 0;
-          game.over = true;
         }, 0);
 
         setTimeout(() => {
-          game.active = false;
+          if (lives === 0) {
+            player.opacity = 0;
+            game.over = true;
+          }
+        }, 0);
+
+        setTimeout(() => {
+          if (lives === 0) game.active = false;
         }, 2000);
       } else if (
         player.position.y + player.height <= jar.position.y &&
@@ -282,11 +289,10 @@ function animatePlayer() {
         setTimeout(() => {
           grid.jars.splice(i, 1);
         }, 0);
-      } else if (jar.position.y >= canvas.height)
-      {
+      } else if (jar.position.y >= canvas.height) {
         setTimeout(() => {
-            grid.jars.splice(i);
-          }, 0);
+          grid.jars.splice(i);
+        }, 0);
       }
     });
   });
@@ -311,7 +317,7 @@ function animatePlayer() {
 
   frames++;
 
-  console.log(frames)
+  console.log(frames);
 }
 
 animatePlayer();

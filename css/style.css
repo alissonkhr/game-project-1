@@ -22,13 +22,13 @@ div {
     position: relative;
 }
 
-p {
-    position: absolute;
-    left: 10px;
-    z-index: 10;
+#score, #lives {
     font-size: 20px;
     color: rgb(181, 116, 242);
     text-shadow: 1px 1px #772bda;
     font-family: silk, sans-serif;
-    font-weight: bold;
+}
+
+#score {
+    position: absolute;
 }
