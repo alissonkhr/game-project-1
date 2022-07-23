@@ -196,11 +196,11 @@ const keys = {
     pressed: false,
   },
 };
-const jarSmashSound = new Audio("../sounds/jarSmash.mp3");
+const jarSmashSound = new Audio("./sounds/jarSmash.mp3");
 jarSmashSound.volume = 0.2;
-const playerHurtSound = new Audio("../sounds/oof.mp3");
+const playerHurtSound = new Audio("./sounds/oof.mp3");
 playerHurtSound.volume = 0.3;
-const gameLoopSound = new Audio("../sounds/loop.wav");
+const gameLoopSound = new Audio("./sounds/loop.wav");
 gameLoopSound.loop = true;
 
 let frames = 0;
