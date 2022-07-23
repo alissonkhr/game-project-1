@@ -334,7 +334,7 @@ function gameTimer() {
   $("#timerEle").html(`${gameTime} seconds`);
 }
 
-animatePlayer();
+//animatePlayer();
 
 window.addEventListener("keydown", (event) => {
   if (game.over) return;
@@ -370,3 +370,4 @@ window.addEventListener("keyup", (event) => {
       break;
   }
 });
+

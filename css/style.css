@@ -12,6 +12,7 @@ h1 {
 }
 
 body {
+    background-color: rgb(197, 164, 164);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,6 +31,19 @@ div {
 }
 
 #stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+#startButton, #restartButton, #rulesButton {
+    color: rgb(181, 116, 242);
+    text-shadow: 1px 1px #772bda;
+    background-color: bisque;
+    font-family: silk, sans-serif;
+    border-radius: 3px;
+}
+
+#buttons {
     display: flex;
     justify-content: space-between;
 }
