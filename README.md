@@ -31,6 +31,8 @@ This game will be set to a time limit and the goal is to move from left to right
 
 - I was not able to get the collision detection perfect for the player when smashing a jar, so that needs some revisiting.
 
+- Fix issue with player going off screen while holding jump.
+
 ### Forthcoming Features
 
 - Add winning and losing game images or other styling instead of alerts.
