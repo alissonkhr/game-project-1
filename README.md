@@ -1,5 +1,5 @@
 ## Project Choice (game)
-JavaScript, HTML, and CSS implemented browser game
+JavaScript, jQuery, Canvas, HTML, and CSS implemented browser game.
 >Title: Pot Smash Simulator '97 
 
 ## Project Description
@@ -26,3 +26,16 @@ This game will be set to a time limit and the goal is to move from left to right
 - As a player, I would like a victory animation when I reach the time limit without losing all my lives.
 - As a player, I would like to hear an audible sound when I smash a pot so I know it worked.
 - As a player, I would like to be able to challenge another player online and have a split-screen pot smashing battle.
+
+### Unsolved Problems
+
+- I was not able to get the collision detection perfect for the player when smashing a jar, so that needs some revisiting.
+- Still new to adding audio to a site and it seems my hosted webpage does not play the audio, but locally it works fine for me.
+
+### Forthcoming Features
+
+- Add winning and losing game images or other styling instead of alerts.
+
+- Implement a second player and also change the way jars spawn to be more difficult and spread unevenly around the canvas.
+
+- Create a red flash when 5 seconds are left on the canvas' timer.
