@@ -196,6 +196,8 @@ const keys = {
     pressed: false,
   },
 };
+const jarSmashSound = new Audio("../sounds/jarSmash.mp3");
+jarSmashSound.volume = 0.2;
 
 let frames = 0;
 //let interval = 1;
@@ -291,6 +293,7 @@ function animatePlayer() {
         player.position.x + player.width >= jar.position.x &&
         player.position.x <= jar.position.x + jar.width
       ) {
+        jarSmashSound.play();
         score += 1;
         $("#scoreEle").html(score);
         createParticles({
