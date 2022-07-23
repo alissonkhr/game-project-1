@@ -198,6 +198,8 @@ const keys = {
 };
 const jarSmashSound = new Audio("../sounds/jarSmash.mp3");
 jarSmashSound.volume = 0.2;
+const playerHurtSound = new Audio("../sounds/oof.mp3");
+playerHurtSound.volume = 0.3;
 
 let frames = 0;
 //let interval = 1;
@@ -258,6 +260,7 @@ function animatePlayer() {
         player.position.x + player.width >= jar.position.x &&
         player.position.x <= jar.position.x + jar.width
       ) {
+        playerHurtSound.play();
         lives -= 1;
         $("#livesEle").html(lives);
         createParticles({
