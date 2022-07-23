@@ -203,7 +203,7 @@ let game = {
 };
 let score = 0;
 let lives = 3;
-let gameTime = 60;
+let gameTime = 60; //;
 
 function createParticles({ object, color }) {
   for (let i = 0; i < 15; i++) {
@@ -327,6 +327,9 @@ function gameTimer() {
     player.opacity = 0;
     game.over = true;
     game.active = false;
+    alert(
+      `You scored ${score} points and lived with ${lives} lives left!\nYou can try to beat your score by pressing Restart to try again.\nPress Rules if you need a refresher on what to do :)`
+    );
     return;
   }
   $("#timerEle").html(`${gameTime} seconds`);
