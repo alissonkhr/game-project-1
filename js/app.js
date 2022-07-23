@@ -266,15 +266,22 @@ function animatePlayer() {
         }, 0);
 
         setTimeout(() => {
-          if (lives === 0) {
+          if (lives <= 0) {
             player.opacity = 0;
             game.over = true;
             clearInterval(gameCounter);
+            alert(`Oh no! You just lost all your lives so the game is over :(`);
           }
         }, 0);
 
         setTimeout(() => {
-          if (lives === 0) game.active = false;
+          if (lives <= 0) {
+            game.active = false;
+            clearInterval(gameCounter);
+            alert(
+              `You can click on Rules to check how to play and click Restart when you're ready to try again.`
+            );
+          }
         }, 2000);
       } else if (
         player.position.y + player.height <= jar.position.y &&
