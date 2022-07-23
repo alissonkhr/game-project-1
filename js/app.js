@@ -200,6 +200,8 @@ const jarSmashSound = new Audio("../sounds/jarSmash.mp3");
 jarSmashSound.volume = 0.2;
 const playerHurtSound = new Audio("../sounds/oof.mp3");
 playerHurtSound.volume = 0.3;
+const gameLoopSound = new Audio("../sounds/loop.wav");
+gameLoopSound.loop = true;
 
 let frames = 0;
 //let interval = 1;
@@ -274,6 +276,7 @@ function animatePlayer() {
 
         setTimeout(() => {
           if (lives <= 0) {
+            gameLoopSound.pause();
             player.opacity = 0;
             game.over = true;
             clearInterval(gameCounter);
@@ -283,6 +286,7 @@ function animatePlayer() {
 
         setTimeout(() => {
           if (lives <= 0) {
+            gameLoopSound.pause();
             game.active = false;
             clearInterval(gameCounter);
             alert(
@@ -333,11 +337,14 @@ function animatePlayer() {
   }
 
   frames++;
+
+  gameLoopSound.play();
 }
 
 function gameTimer() {
   gameTime = gameTime - 1;
   if (gameTime <= -1) {
+    gameLoopSound.pause();
     clearInterval(gameCounter);
     player.opacity = 0;
     game.over = true;
