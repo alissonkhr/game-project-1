@@ -1,3 +1,5 @@
+console.log('Hey, listen!')
+
 const canvas = document.querySelector("canvas"); // grabs canvas element
 // console.log(canvas)
 
@@ -164,7 +166,7 @@ class Grid {
         );
       }
     }
-    console.log(this.jars, "jars array");
+    // console.log(this.jars, "jars array");
   }
 
   update() {
@@ -242,14 +244,14 @@ function animatePlayer() {
       particle.update();
     }
   });
-  grids.forEach((grid) => {
+  grids?.forEach((grid) => {
     grid.update();
     grid.jars.forEach((jar, i) => {
       jar.update({ velocity: grid.velocity });
 
       // removes jars when player collides
       if (
-        player.position.y + player.height >= jar.position.y &&
+        player.position?.y + player.height >= jar.position?.y &&
         player.position.y <= jar.position.y + jar.height &&
         player.position.x + player.width >= jar.position.x &&
         player.position.x <= jar.position.x + jar.width
@@ -284,7 +286,7 @@ function animatePlayer() {
           }
         }, 2000);
       } else if (
-        player.position.y + player.height <= jar.position.y &&
+        player.position?.y + player.height <= jar.position?.y &&
         player.position.y <= jar.position.y + jar.height &&
         player.position.x + player.width >= jar.position.x &&
         player.position.x <= jar.position.x + jar.width
@@ -298,7 +300,7 @@ function animatePlayer() {
         setTimeout(() => {
           grid.jars.splice(i, 1);
         }, 0);
-      } else if (jar.position.y >= canvas.height) {
+      } else if (jar.position?.y >= canvas.height) {
         setTimeout(() => {
           grid.jars.splice(i);
         }, 0);
